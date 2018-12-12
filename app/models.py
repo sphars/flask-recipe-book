@@ -3,6 +3,12 @@ from app import db, login
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
+recipe_categories = db.Table(
+    'recipe_categories',
+    db.Column('recipe_id', db.Integer, db.ForeignKey('recipe.id')),
+    db.Column('category_id', db.Integer, db.ForeignKey('category.id'))
+)
+
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
@@ -33,6 +39,18 @@ class Recipe(db.Model):
     instructions = db.Column(db.Text)
     timestamp = db.Column(db.Date, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    categories = db.relationship('Category',
+        secondary=recipe_categories,
+        primaryjoin=(recipe_categories.c.recipe_id == id),
+        backref=db.backref('recipes', lazy='dynamic'),
+        lazy='dynamic')
 
     def __repr__(self):
         return '<Recipe {}>'.format(self.title)
+
+class Category(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(65), unique=True, nullable=False, index=True)
+
+    def __repr__(self):
+        return '<Category {}>'.format(self.name)

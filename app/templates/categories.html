@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Categories - Flask Recipe Book{% endblock %}
+
+{% block page_content %}
+
+<div class="container">
+    <h1>Recipe Categories</h1>
+    <div>
+        <ul class="list-unstyled">
+        {% for category in categories %}
+            <li><a href="{{ url_for('category', category_id = category.id) }}">{{ category.name }}</a></li>
+        {% endfor %}
+        </ul>
+    </div>
+</div>
+
+{% endblock %}

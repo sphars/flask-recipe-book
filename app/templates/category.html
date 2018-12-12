@@ -1,13 +1,13 @@
 {% extends "base.html" %}
-{% block title %}{{ author.first_name + ' ' + author.last_name }} - Flask Recipe Book{% endblock %}
+{% block title %}{{ category.name }} Recipes - Flask Recipe Book{% endblock %}
 
 {% block page_content %}
 
 <div class="container">
-    <h1>{{ author.first_name + ' ' + author.last_name }}'s Recipes</h1>
+    <h1>{{ category.name }} Recipes</h1>
     <div>
         <ul class="list-unstyled">
-            {% for recipe in author.recipes %}
+            {% for recipe in category.recipes %}
             <li><a href="{{ url_for('recipe', recipe_id = recipe.id) }}">{{ recipe.title }}</a></li>
             {% endfor %}
         </ul>

@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db
 from app.forms import LoginForm, RegistrationForm
-from app.models import User, Recipe
+from app.models import User, Recipe, Category
 from werkzeug.urls import url_parse
 import random
 
@@ -23,7 +23,7 @@ def my_recipes():
 
 @app.route('/authors')
 def authors():
-    authors = User.query.all()
+    authors = User.query.order_by(User.first_name.desc()).all()
     return render_template('authors.html', authors=authors)
 
 @app.route('/author/<author_id>')
@@ -40,6 +40,16 @@ def recipes():
 def recipe(recipe_id):
     recipe = Recipe.query.filter_by(id=recipe_id).first_or_404()
     return render_template('recipe.html', recipe=recipe)
+
+@app.route('/categories')
+def categories():
+    categories = Category.query.all()
+    return render_template('categories.html', categories=categories)
+
+@app.route('/category/<category_id>')
+def category(category_id):
+    category = Category.query.filter_by(id=category_id).first_or_404()
+    return render_template('category.html', category=category)
 
 
 @app.route('/login', methods=['GET', 'POST'])

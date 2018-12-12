@@ -6,17 +6,28 @@
 <div class="container">
     <h1>{{ recipe.title }}</h1>
     <p><a href="{{ url_for('author', author_id=recipe.author.id) }}">{{ recipe.author.first_name + ' ' + recipe.author.last_name }}</a></p>
-    <p>{{ recipe.description }}</p>
-    <ul>
-        {% for ingredient in recipe.ingredients.split('*') %}
-        <li>{{ ingredient }}</li>
+    <p>
+        {% for category in recipe.categories %}
+        <a class="btn btn-xs btn-info" href="{{ url_for('category', category_id=category.id) }}">{{ category.name }}</a>
         {% endfor %}
-    </ul>
-    <ol>
-        {% for instruction in recipe.instructions.split('*') %}
-        <li>{{ instruction }}</li>
-        {% endfor %}
-    </ol>
+    </p>
+    <p class="lead">{{ recipe.description }}</p>
+    <div>
+        <h3>Ingredients</h3>
+        <ul class="list-unstyled">
+            {% for ingredient in recipe.ingredients.split('*') %}
+            <li>{{ ingredient }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div>
+        <h3>Directions</h3>
+        <ol>
+            {% for instruction in recipe.instructions.split('*') %}
+            <li>{{ instruction }}</li>
+            {% endfor %}
+        </ol>
+    </div>
 </div>
 
 {% endblock %}

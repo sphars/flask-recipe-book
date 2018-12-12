@@ -6,7 +6,7 @@
 <div class="container">
     <h1>Recipe Authors</h1>
     <div>
-        <ul>
+        <ul class="list-unstyled">
         {% for author in authors %}
             <li><a href="{{ url_for('author', author_id = author.id) }}">{{ author.first_name + ' ' + author.last_name}}</a></li>
         {% endfor %}
