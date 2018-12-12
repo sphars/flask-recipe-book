@@ -6,11 +6,17 @@
 <div class="container">
     <h1>{{ author.first_name + ' ' + author.last_name }}'s Recipes</h1>
     <div>
+        {% if author.recipes.count() != 0 %}
         <ul class="list-unstyled">
             {% for recipe in author.recipes %}
             <li><a href="{{ url_for('recipe', recipe_id = recipe.id) }}">{{ recipe.title }}</a></li>
             {% endfor %}
         </ul>
+        {% else %}
+        <p>
+            This user hasn't added any recipes yet!
+        </p>
+        {% endif %}
     </div>
 </div>
 
