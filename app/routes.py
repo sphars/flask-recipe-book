@@ -24,7 +24,7 @@ def authors():
 
 @app.route('/author/<author_id>')
 def author(author_id):
-    author = User.query.get(author_id)
+    author = User.query.filter_by(id=author_id).first_or_404()
     return render_template('author.html', author=author)
 
 @app.route('/recipes')
@@ -34,7 +34,7 @@ def recipes():
 
 @app.route('/recipe/<recipe_id>')
 def recipe(recipe_id):
-    recipe = Recipe.query.get(recipe_id)
+    recipe = Recipe.query.filter_by(id=recipe_id).first_or_404()
     return render_template('recipe.html', recipe=recipe)
 
 

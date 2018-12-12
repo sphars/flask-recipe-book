@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}404 - Flask Recipe Book{% endblock %}
+
+{% block page_content %}
+<div class="container">
+    <h1>Not Found</h1>
+    <p><a href="{{ url_for('index') }}">Back</a></p>
+</div>
+{% endblock %}
