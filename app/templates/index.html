@@ -5,6 +5,9 @@
 
 <div class="container">
     <h1>Welcome to the Flask Recipe Book!</h1>
+    <div>
+        Here's a random recipe for you to try: <a href="{{ url_for('recipe', recipe_id=recipe.id) }}">{{ recipe.title }}</a>
+    </div>
 </div>
 
 {% endblock %}

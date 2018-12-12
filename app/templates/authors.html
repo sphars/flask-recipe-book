@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Authors - Flask Recipe Book{% endblock %}
+
+{% block page_content %}
+
+<div class="container">
+    <h1>Recipe Authors</h1>
+    <div>
+        <ul>
+        {% for author in authors %}
+            <li><a href="{{ url_for('author', author_id = author.id) }}">{{ author.first_name + ' ' + author.last_name}}</a></li>
+        {% endfor %}
+        </ul>
+    </div>
+</div>
+
+{% endblock %}

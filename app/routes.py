@@ -2,18 +2,41 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db
 from app.forms import LoginForm, RegistrationForm
-from app.models import User
+from app.models import User, Recipe
 from werkzeug.urls import url_parse
+import random
 
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html')
+    random_recipe = Recipe.query.get(random.randint(1, Recipe.query.count()))
+    return render_template('index.html', recipe=random_recipe)
 
 @app.route('/my-recipes')
 @login_required
 def my_recipes():
     return render_template('my-recipes.html')
+
+@app.route('/authors')
+def authors():
+    authors = User.query.all()
+    return render_template('authors.html', authors=authors)
+
+@app.route('/author/<author_id>')
+def author(author_id):
+    author = User.query.get(author_id)
+    return render_template('author.html', author=author)
+
+@app.route('/recipes')
+def recipes():
+    recipes = Recipe.query.all()
+    return render_template('recipes.html', recipes=recipes)
+
+@app.route('/recipe/<recipe_id>')
+def recipe(recipe_id):
+    recipe = Recipe.query.get(recipe_id)
+    return render_template('recipe.html', recipe=recipe)
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

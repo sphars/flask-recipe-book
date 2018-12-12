@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Recipes - Flask Recipe Book{% endblock %}
+
+{% block page_content %}
+
+<div class="container">
+    <h1>Recipes</h1>
+    <div>
+        <ul>
+            {% for recipe in recipes %}
+            <li><a href="{{ url_for('recipe', recipe_id = recipe.id) }}">{{ recipe.title }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+{% endblock %}
