@@ -12,6 +12,10 @@ def index():
     random_recipe = Recipe.query.get(random.randint(1, Recipe.query.count()))
     return render_template('index.html', recipe=random_recipe)
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
 @app.route('/my-recipes')
 @login_required
 def my_recipes():
